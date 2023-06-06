@@ -1,0 +1,30 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+				   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+	                                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+
+	<changeSet id="create-table-board" author="vvi">
+		<sql>
+			CREATE TABLE board (
+								   id UUID PRIMARY KEY NOT NULL,
+								   name VARCHAR(255) NOT NULL,
+								   description TEXT
+			);
+		</sql>
+	</changeSet>
+
+	<changeSet id="create-table-task" author="vvi">
+		<sql>
+			CREATE TABLE task (
+								  id UUID PRIMARY KEY NOT NULL,
+								  name VARCHAR(255) NOT NULL,
+								  description TEXT,
+								  board_id UUID NOT NULL,
+								  status VARCHAR(20) default 'CREATED' NOT NULL ,
+								  user_id UUID NOT NULL,
+								  FOREIGN KEY (board_id) REFERENCES board (id) ON DELETE CASCADE
+			);
+		</sql>
+	</changeSet>
+
+</databaseChangeLog>
